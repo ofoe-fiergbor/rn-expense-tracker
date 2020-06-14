@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import { Text, StyleSheet, View, TouchableOpacity } from "react-native";
 import { AntDesign } from "@expo/vector-icons";
 
-export default class IncomeExpSummary extends Component {
+export default class BudgetSummary extends Component {
   render() {
     return (
       <View style={styles.sectionContainer}>
@@ -24,16 +24,16 @@ export default class IncomeExpSummary extends Component {
           }}
         >
           <TouchableOpacity style={styles.summary}>
-            <Text style={styles.summaryText}>Income</Text>
+            <Text style={styles.summaryText}>Projection</Text>
             <Text style={styles.summaryFigures}>GHC 3,800</Text>
           </TouchableOpacity>
           <TouchableOpacity style={styles.summary}>
-            <Text style={styles.summaryText}>Expenses</Text>
-            <Text style={styles.summaryFigures}>GHC 2,800</Text>
+            <Text style={styles.summaryText}>Daily Budget</Text>
+            <Text style={styles.summaryFigures}>GHC 122.58</Text>
           </TouchableOpacity>
           <TouchableOpacity style={styles.summary}>
-            <Text style={styles.summaryText}>Balance</Text>
-            <Text style={styles.summaryFigures}>GHC 1,000</Text>
+            <Text style={styles.summaryText}>Total Spent</Text>
+            <Text style={styles.summaryFigures}>GHC 1,800</Text>
           </TouchableOpacity>
         </View>
       </View>
@@ -72,10 +72,10 @@ const styles = StyleSheet.create({
     alignItems: "center",
   },
   summaryText: {
-    fontSize: 14,
+    fontSize: 13,
   },
   summaryFigures: {
-    fontSize: 15,
+    fontSize: 14,
     fontWeight: "bold",
   },
 });
