@@ -2,13 +2,53 @@ import React, { Component } from "react";
 import { Text, StyleSheet, View } from "react-native";
 import RoundedBG from "../components/General/RoundedBG";
 import { Dropdown } from "react-native-material-dropdown";
-import { TextInput, ScrollView, TouchableOpacity } from "react-native-gesture-handler";
+import {
+  TextInput,
+  ScrollView,
+  TouchableOpacity,
+} from "react-native-gesture-handler";
+import { connect } from "react-redux";
+import {addTransaction} from '../redux/actions/addTransactionAction'
+// import DatePickerr from "../components/AddScreen/DatePickerr";
 
-export default class AddScreen extends Component {
+class AddScreen extends Component {
+  constructor(props) {
+    super(props);
+
+    this.state = {
+      id: Math.random().toString(36).substr(2, 5),
+      incomeOrExpense: "",
+      category: "",
+      description: "",
+      amount: "",
+    };
+  }
+  handleUpdateState = (name, value) => {
+    this.setState({
+      [name]: value,
+    });
+  };
+
+  handleTransactionSumbit = () =>{
+    let {description, amount} = this.state
+    if (description.length ===0|| amount === 0){
+      alert('Form is Incomplete')
+      return
+    }
+    let transaction = [this.state]
+    this.props.addTransaction(transaction)
+    this.props.navigation.navigate('list')
+    
+  }
+
   render() {
-    const data = [{ value: "Income" }, { value: "Expense" }];
+    const transactionTypeData = [
+      { value: "Income" }, 
+      { value: "Expense" },
+    ];
     const categoryData = [
       { value: "Salary" },
+      { value: "Passive Income" },
       { value: "Food" },
       { value: "Rent" },
       { value: "Clothes" },
@@ -20,36 +60,67 @@ export default class AddScreen extends Component {
           <RoundedBG />
         </View>
         <ScrollView>
-        <View style={styles.headingSummaryCtn}>
-          <Text style={styles.heading}>ADD TRANSACTION</Text>
-          <Text style={styles.summary}>
-            Here, you add all income and expense transactions.
-          </Text>
-        </View>
+          <View style={styles.headingSummaryCtn}>
+            <Text style={styles.heading}>ADD TRANSACTION</Text>
+            <Text style={styles.summary}>
+              Here, you add all income and expense transactions.
+            </Text>
+          </View>
 
-        <View style={styles.category}>
-          <Dropdown label="Income / Expense" data={data} />
-        </View>
-        <View style={styles.formContainer}>
-          <View>
-            <Dropdown label="Item Category" fontSize={12} data={categoryData} />
+          <View style={styles.category}>
+            <Dropdown
+              label="Income / Expense"
+              data={transactionTypeData}
+              onChangeText={(text) => {
+                this.handleUpdateState("incomeOrExpense", text);
+              }}
+            />
           </View>
-          <View style={styles.textInput}>
-            <TextInput placeholder="Description" autoCapitalize='sentences'/>
+          <View style={styles.formContainer}>
+            <View>
+              <Dropdown
+                label="Item Category"
+                fontSize={12}
+                data={categoryData}
+                onChangeText={(text) => {
+                  this.handleUpdateState("category", text);
+                }}
+              />
+            </View>
+
+            {/* <View style={styles.textInput}>
+            <DatePickerr handleUpdateState={(text) => {this.handleUpdateState('date', text) }} />
+            </View> */}
+
+            <View style={styles.textInput}>
+              <TextInput
+                placeholder="Description"
+                autoCapitalize="sentences"
+                onChangeText={(text) => {
+                  this.handleUpdateState("description", text);
+                }}
+              />
+            </View>
+
+            <View style={styles.textInput}>
+              <TextInput
+                placeholder="Amount"
+                keyboardType="decimal-pad"
+                onChangeText={(text) => {
+                  this.handleUpdateState("amount", text);
+                }}
+              />
+            </View>
+            <TouchableOpacity style={styles.saveBtn} onPress={this.handleTransactionSumbit}>
+              <Text style={{ color: "#fff", fontSize: 16 }}>SAVE</Text>
+            </TouchableOpacity>
           </View>
-          <View style={styles.textInput}>
-            <TextInput placeholder="Amount" keyboardType='decimal-pad' />
-          </View>
-          <TouchableOpacity style={styles.saveBtn}>
-              <Text style={{color:'#fff', fontSize: 16}}>SAVE</Text>
-          </TouchableOpacity>
-        </View>
-        
         </ScrollView>
       </View>
     );
   }
 }
+export default connect(null, {addTransaction})(AddScreen)
 
 const styles = StyleSheet.create({
   container: {
@@ -99,15 +170,15 @@ const styles = StyleSheet.create({
     borderBottomColor: "#dce9fa",
     borderBottomWidth: 1,
   },
-  saveBtn:{
-      width: 250,
-      height: 50,
-      alignSelf:'center',
-      backgroundColor: '#668cff',
-      marginVertical: 20,
-      borderRadius: 10,
-      elevation: 2,
-      alignItems:'center',
-      justifyContent:'center'
-  }
+  saveBtn: {
+    width: 250,
+    height: 50,
+    alignSelf: "center",
+    backgroundColor: "#668cff",
+    marginVertical: 20,
+    borderRadius: 10,
+    elevation: 2,
+    alignItems: "center",
+    justifyContent: "center",
+  },
 });

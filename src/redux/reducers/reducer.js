@@ -1,10 +1,6 @@
-const initialState = {}
+import {combineReducers} from 'redux';
+import addTransactionReducer from './addTransationReducer';
 
-const reducer = ( state= initialState, action)=>{
-    switch(action.type){
-        default:
-            return state
-    }
-}
-
-export default reducer
+export default combineReducers({
+    addTransaction: addTransactionReducer
+})
