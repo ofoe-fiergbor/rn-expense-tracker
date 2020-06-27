@@ -1,59 +1,42 @@
 import React, { Component } from "react";
-import { Text, StyleSheet, View } from "react-native";
-import RoundedBG from "../components/General/RoundedBG";
-import { Dropdown } from "react-native-material-dropdown";
 import {
-  TextInput,
+  Text,
+  StyleSheet,
+  View,
+  Modal,
   ScrollView,
   TouchableOpacity,
-} from "react-native-gesture-handler";
+} from "react-native";
+import RoundedBG from "../components/General/RoundedBG";
+import { Dropdown } from "react-native-material-dropdown";
 import { connect } from "react-redux";
-import {addTransaction} from '../redux/actions/addTransactionAction'
-// import DatePickerr from "../components/AddScreen/DatePickerr";
+import { addTransaction } from "../redux/actions/addTransactionAction";
+import { AntDesign } from "@expo/vector-icons";
+import IncomeForm from "../components/AddScreen/IncomeForm";
+import ExpenseForm from "../components/AddScreen/ExpenseForm";
 
 class AddScreen extends Component {
   constructor(props) {
     super(props);
 
     this.state = {
-      id: Math.random().toString(36).substr(2, 5),
-      incomeOrExpense: "",
-      category: "",
-      description: "",
-      amount: "",
+      isExpenseOpen: false,
+      isIncomeOpen: false,
+      
     };
   }
-  handleUpdateState = (name, value) => {
+  handleIsExpenseOpen = ()=>{
     this.setState({
-      [name]: value,
-    });
-  };
-
-  handleTransactionSumbit = () =>{
-    let {description, amount} = this.state
-    if (description.length ===0|| amount === 0){
-      alert('Form is Incomplete')
-      return
-    }
-    let transaction = [this.state]
-    this.props.addTransaction(transaction)
-    this.props.navigation.navigate('list')
-    
+      isExpenseOpen:false
+    })
+  }
+  handleIsIncomeOpen=()=>{
+    this.setState({
+      isIncomeOpen: false
+    })
   }
 
   render() {
-    const transactionTypeData = [
-      { value: "Income" }, 
-      { value: "Expense" },
-    ];
-    const categoryData = [
-      { value: "Salary" },
-      { value: "Passive Income" },
-      { value: "Food" },
-      { value: "Rent" },
-      { value: "Clothes" },
-      { value: "Lifestyle" },
-    ];
     return (
       <View style={styles.container}>
         <View>
@@ -66,53 +49,65 @@ class AddScreen extends Component {
               Here, you add all income and expense transactions.
             </Text>
           </View>
+          <Modal visible={this.state.isIncomeOpen} animationType="slide">
+            <View style={styles.modalContent}>
+              <AntDesign
+                name="closecircleo"
+                size={30}
+                color="#e4f5ff"
+                style={{ alignSelf: "center", marginTop: 30 }}
+                onPress={() => {
+                  this.setState({
+                    isIncomeOpen: false,
+                  });
+                }}
+              />
+               <View style={styles.modalBackground}>
+               <Text style={styles.modalHeader}>Income</Text>
+              <IncomeForm handleIsIncomeOpen={this.handleIsIncomeOpen}/>
+              </View>
+            </View>
+          </Modal>
+          <Modal visible={this.state.isExpenseOpen} animationType="slide">
+            <View style={styles.modalContent}>
+            <AntDesign
+                name="closecircleo"
+                size={30}
+                color="#e4f5ff"
+                style={{ alignSelf: "center",  marginTop: 30 }}
+                onPress={() => {
+                  this.setState({
+                    isExpenseOpen: false,
+                  });
+                }}
+              />
+              <View style={styles.modalBackground}>
+             <Text style={styles.modalHeader}>Expense</Text>
+              <ExpenseForm  handleIsExpenseOpen={this.handleIsExpenseOpen}/>
+              </View>
+            </View>
+          </Modal>
 
-          <View style={styles.category}>
-            <Dropdown
-              label="Income / Expense"
-              data={transactionTypeData}
-              onChangeText={(text) => {
-                this.handleUpdateState("incomeOrExpense", text);
+          <View style={styles.buttonContainer}>
+            <TouchableOpacity
+              style={styles.button}
+              onPress={() => {
+                this.setState({
+                  isIncomeOpen: true,
+                });
               }}
-            />
-          </View>
-          <View style={styles.formContainer}>
-            <View>
-              <Dropdown
-                label="Item Category"
-                fontSize={12}
-                data={categoryData}
-                onChangeText={(text) => {
-                  this.handleUpdateState("category", text);
-                }}
-              />
-            </View>
-
-            {/* <View style={styles.textInput}>
-            <DatePickerr handleUpdateState={(text) => {this.handleUpdateState('date', text) }} />
-            </View> */}
-
-            <View style={styles.textInput}>
-              <TextInput
-                placeholder="Description"
-                autoCapitalize="sentences"
-                onChangeText={(text) => {
-                  this.handleUpdateState("description", text);
-                }}
-              />
-            </View>
-
-            <View style={styles.textInput}>
-              <TextInput
-                placeholder="Amount"
-                keyboardType="decimal-pad"
-                onChangeText={(text) => {
-                  this.handleUpdateState("amount", text);
-                }}
-              />
-            </View>
-            <TouchableOpacity style={styles.saveBtn} onPress={this.handleTransactionSumbit}>
-              <Text style={{ color: "#fff", fontSize: 16 }}>SAVE</Text>
+            >
+              <Text style={styles.buttonText}>Income</Text>
+            </TouchableOpacity>
+            <TouchableOpacity
+              style={styles.button}
+              onPress={() => {
+                this.setState({ 
+                  isExpenseOpen: true,
+                });
+              }}
+            >
+              <Text style={styles.buttonText}>Expenditure</Text>
             </TouchableOpacity>
           </View>
         </ScrollView>
@@ -120,24 +115,33 @@ class AddScreen extends Component {
     );
   }
 }
-export default connect(null, {addTransaction})(AddScreen)
+export default connect(null, { addTransaction })(AddScreen);
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: "#e4f5ff",
   },
-  category: {
-    width: 300,
-    height: 70,
-    backgroundColor: "#fff",
-    alignSelf: "center",
-    marginTop: 10,
-    elevation: 2,
-    borderRadius: 10,
-    justifyContent: "center",
-    paddingHorizontal: 10,
+  buttonContainer: {
+    alignItems: "center",
+    marginTop: 100,
   },
+  button: {
+    width: 250,
+    height: 80,
+    backgroundColor: "#FFD966",
+    marginVertical: 15,
+    elevation: 5,
+    justifyContent: "center",
+    alignItems: "center",
+    borderRadius: 10,
+  },
+  buttonText: {
+    fontSize: 23,
+    fontWeight: "bold",
+    color: "grey",
+  },
+
   headingSummaryCtn: {
     marginTop: 70,
     marginBottom: 20,
@@ -156,29 +160,19 @@ const styles = StyleSheet.create({
     textAlign: "center",
     color: "#ccd9ff",
   },
-  formContainer: {
-    width: 300,
-    backgroundColor: "#fff",
-    marginTop: 50,
-    borderRadius: 10,
-    alignSelf: "center",
-    paddingHorizontal: 20,
+  modalContent: {
+    flex: 1,
+    // backgroundColor: "#e4f5ff",
+    backgroundColor: '#668cff',
   },
-  textInput: {
-    marginVertical: 10,
-    lineHeight: 15,
-    borderBottomColor: "#dce9fa",
-    borderBottomWidth: 1,
+  modalBackground:{
+    marginTop: 20,
+    backgroundColor:'#e4f5ff',
+    paddingHorizontal: 30,
+    flex: 1,
+    borderTopRightRadius:40,
+    borderTopLeftRadius: 40
+
   },
-  saveBtn: {
-    width: 250,
-    height: 50,
-    alignSelf: "center",
-    backgroundColor: "#668cff",
-    marginVertical: 20,
-    borderRadius: 10,
-    elevation: 2,
-    alignItems: "center",
-    justifyContent: "center",
-  },
+  modalHeader:{textAlign:'center', fontSize: 30, fontWeight:'bold', marginTop: 20}
 });

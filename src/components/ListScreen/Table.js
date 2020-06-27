@@ -5,22 +5,23 @@ import { ScrollView } from "react-native-gesture-handler";
 
 export default class Table extends Component {
   render() {
+    const { category, amount } = this.props;
     return (
       <View style={styles.container}>
         <View style={{ flexDirection: "row", justifyContent: "space-between" }}>
           <Text style={{ fontSize: 11, color: "grey" }}>SATURDAY, 25 JAN</Text>
-          <Text style={{ fontSize: 11, color: "grey" }}>-570 C</Text>
+          {/* <Text style={{ fontSize: 11, color: "grey" }}>-570 C</Text> */}
         </View>
         <View style={styles.row}>
           <View style={{ flexDirection: "row", alignItems: "center" }}>
             <View style={styles.icon}>
               <FontAwesome name="cutlery" size={20} color="#fff" />
             </View>
-            <Text style={styles.cardText}>Food</Text>
+            <Text style={styles.cardText}>{category}</Text>
           </View>
-          <Text style={{ color: "grey", textAlign: "right" }}>-70 C</Text>
+    <Text style={{ color: "grey", textAlign: "right" }}>{amount}</Text>
         </View>
-        <View style={styles.row}>
+        {/* <View style={styles.row}>
           <View style={{ flexDirection: "row", alignItems: "center" }}>
             <View style={[styles.icon, {backgroundColor:'#ffbf00'}]}>
             <FontAwesome5 name="tshirt" size={20} color="#fff" />
@@ -37,7 +38,7 @@ export default class Table extends Component {
             <Text style={styles.cardText}>Rent</Text>
           </View>
           <Text style={{ color: "grey", textAlign: "right" }}>-250 C</Text>
-        </View>
+        </View> */}
       </View>
     );
   }
@@ -52,7 +53,7 @@ const styles = StyleSheet.create({
     elevation: 2,
     paddingHorizontal: 10,
     paddingVertical: 10,
-    marginVertical: 20,
+    marginVertical: 5,
   },
   icon: {
     backgroundColor: "#668cff",
@@ -64,8 +65,8 @@ const styles = StyleSheet.create({
     marginRight: 10,
   },
   cardText: {
-    textTransform:'capitalize',
-    fontSize: 16
+    textTransform: "capitalize",
+    fontSize: 16,
   },
   row: {
     flexDirection: "row",
