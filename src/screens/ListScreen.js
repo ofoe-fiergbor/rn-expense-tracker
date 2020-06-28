@@ -2,9 +2,9 @@ import { StyleSheet, Text, View, FlatList } from "react-native";
 import RoundedBG from "../components/General/RoundedBG";
 import IncomeExpSummary from "../components/General/IncomeExpSummary";
 import Table from "../components/ListScreen/Table";
-import { ScrollView } from "react-native-gesture-handler";
+import TableInc from "../components/ListScreen/TableInc";
 import { connect } from "react-redux";
-import React, { Component } from 'react'
+import React, { Component } from "react";
 
 export class ListScreen extends Component {
   render() {
@@ -16,27 +16,61 @@ export class ListScreen extends Component {
         <View style={{ paddingHorizontal: 20 }}>
           <View style={styles.headingSummaryCtn}>
             <Text style={styles.heading}>OVERVIEW</Text>
-            <Text style={styles.summary}>Here's a list of your transactions</Text>
+            <Text style={styles.summary}>
+              Here's a list of your transactions
+            </Text>
           </View>
           <View style={{ marginBottom: 10 }}>
             <IncomeExpSummary />
           </View>
         </View>
-        {/* <FlatList
-          data={this.props.transactions}
+
+        <View style={{ height: 105, marginBottom: 10 }}>
+          <FlatList
+            data={this.props.addIncomeReducer}
+            horizontal={true}
+            showsHorizontalScrollIndicator={false}
+            renderItem={({ item }) => {
+              return (
+                <TableInc
+                  amount={item.amount}
+                  description={item.description}
+                  incomeSource={item.incomeSource}
+                  date={item.date}
+                />
+              );
+            }}
+            keyExtractor={(item) => item.id}
+          />
+        </View>
+
+        <FlatList
+          data={this.props.addExpTransactionReducer}
           renderItem={({ item }) => {
-            return <Table category={item.category} amount={item.amount}/>;
+            return (
+              <Table
+                amount={item.amount}
+                description={item.description}
+                expenseCategory={item.expenseCategory}
+                date={item.date}
+              />
+            );
           }}
-          keyExtractor={(item, i)=> i}
-        /> */}
+          keyExtractor={(item) => item.id}
+        />
       </View>
     );
   }
 }
 
+const mapStateToProps = (state) => {
+  return {
+    addExpTransactionReducer: state.addExpTransactionReducer,
+    addIncomeReducer: state.addIncomeReducer,
+  };
+};
 
-
-export default connect(null)(ListScreen);
+export default connect(mapStateToProps)(ListScreen);
 
 const styles = StyleSheet.create({
   container: {

@@ -1,6 +1,8 @@
 import {combineReducers} from 'redux';
-import addTransactionReducer from './addTransationReducer';
+import addExpTransactionReducer from './addExpTransactionReducer';
+import addIncomeReducer from './addIncomeReducer'
 
 export default combineReducers({
-    addTransaction: addTransactionReducer
+    addExpTransactionReducer,
+    addIncomeReducer
 })

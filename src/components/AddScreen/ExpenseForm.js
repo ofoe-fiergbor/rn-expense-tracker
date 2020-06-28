@@ -29,6 +29,8 @@ class ExpenseForm extends Component {
             expenseCategory: "",
             description: "",
             amount: "",
+            id: Math.random().toString(36).substr(2, 5)
+
           }}
           onSubmit={(values, action) => {
             action.resetForm();
@@ -53,11 +55,11 @@ class ExpenseForm extends Component {
                   <Picker.Item label="Rent" value="rent" />
                   <Picker.Item
                     label="Telephone & Internet"
-                    value="telephoneAndInternet"
+                    value="Telephone & Internet"
                   />
                   <Picker.Item
                     label="Transport & Travel"
-                    value="transportAndTravel"
+                    value="Transport & Travel"
                   />
                   <Picker.Item label="Bills" value="bills" />
                   <Picker.Item label="Medical" value="medical" />

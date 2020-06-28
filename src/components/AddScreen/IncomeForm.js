@@ -21,6 +21,7 @@ class IncomeForm extends Component {
             incomeSource: "",
             description: "",
             amount: "",
+            id: Math.random().toString(36).substr(2, 5)
           }}
           onSubmit={(values, action) => {
             action.resetForm();
@@ -32,9 +33,9 @@ class IncomeForm extends Component {
             <View>
               <View style={styles.pickerContainer}>
                 <Picker
-                  selectedValue={formikProps.values.expenseCategory}
+                  selectedValue={formikProps.values.incomeSource}
                   style={{ height: 50, color: "grey" }}
-                  onValueChange={formikProps.handleChange("expenseCategory")}
+                  onValueChange={formikProps.handleChange("incomeSource")}
                 >
                   <Picker.Item
                     label="How did you earn your money?"
@@ -44,7 +45,7 @@ class IncomeForm extends Component {
                   <Picker.Item label="Side Hustle" value="sideHustle" />
                   <Picker.Item label="Gift" value="gift" />
                   <Picker.Item label="Investment" value="investment" />
-                  <Picker.Item label="Credit Facility" value="ceditFacility" />
+                  <Picker.Item label="Credit Facility" value="credit" />
                   <Picker.Item label="Other" value="other" />
                 </Picker>
               </View>
