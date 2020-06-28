@@ -42,10 +42,10 @@ class IncomeForm extends Component {
                     value="default"
                   />
                   <Picker.Item label="Salary" value="salary" />
-                  <Picker.Item label="Side Hustle" value="sideHustle" />
+                  <Picker.Item label="Side Hustle" value="Side Hustle" />
                   <Picker.Item label="Gift" value="gift" />
                   <Picker.Item label="Investment" value="investment" />
-                  <Picker.Item label="Credit Facility" value="credit" />
+                  <Picker.Item label="Credit Facility" value="Credit Facility" />
                   <Picker.Item label="Other" value="other" />
                 </Picker>
               </View>

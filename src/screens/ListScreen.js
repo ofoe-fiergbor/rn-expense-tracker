@@ -24,7 +24,7 @@ function ListScreen({addExpTransactionReducer, addIncomeReducer, navigation}) {
           </View>
         </View>
 
-        <View style={{ height: 105, marginBottom: 10 }}>
+        <View style={{ height: 130, marginBottom: 10 }}>
           <FlatList
             data={addIncomeReducer}
             horizontal={true}

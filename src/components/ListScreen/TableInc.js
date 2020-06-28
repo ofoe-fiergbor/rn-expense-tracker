@@ -7,7 +7,7 @@ export default class Table extends Component {
     if (this.props.incomeSource === "salary") {
       return "grey";
     }
-    if (this.props.incomeSource === "sideHustle") {
+    if (this.props.incomeSource === "Side Hustle") {
       return "#d92626";
     }
     if (this.props.incomeSource === "gift") {
@@ -16,7 +16,7 @@ export default class Table extends Component {
     if (this.props.incomeSource === "investment") {
       return "green";
     }
-    if (this.props.incomeSource === "cedit") {
+    if (this.props.incomeSource === "Credit Facility") {
       return "navy";
     }
     if (this.props.incomeSource === "other") {
@@ -27,7 +27,7 @@ export default class Table extends Component {
     if (this.props.incomeSource === "salary") {
       return "money-bill-alt";
     }
-    if (this.props.incomeSource === "sideHustle") {
+    if (this.props.incomeSource === "Side Hustle") {
       return "blog";
     }
     if (this.props.incomeSource === "gift") {
@@ -36,7 +36,7 @@ export default class Table extends Component {
     if (this.props.incomeSource === "investment") {
       return "bitcoin";
     }
-    if (this.props.incomeSource === "credit") {
+    if (this.props.incomeSource === "Credit Facility") {
       return "building";
     }
     if (this.props.incomeSource === "other") {
@@ -85,7 +85,7 @@ const styles = StyleSheet.create({
   container: {
     backgroundColor: "#fff",
     width: 100,
-    height: 100,
+    height: 120,
     alignSelf: "center",
     borderRadius: 10,
     elevation: 7,

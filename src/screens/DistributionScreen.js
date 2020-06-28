@@ -1,9 +1,8 @@
 import React, { Component } from "react";
-import { View, Text, StyleSheet } from "react-native";
+import { View, Text, StyleSheet, ScrollView } from "react-native";
 import RoundedBG from "../components/General/RoundedBG";
 import IncomeExpSummary from "../components/General/IncomeExpSummary";
 import DistChart from "../components/DistributionScreen/DistChart";
-import { ScrollView } from "react-native-gesture-handler";
 import ExpDistributionCard from "../components/DistributionScreen/ExpDistributionCard";
 
 class DistributionScreen extends Component {
@@ -23,13 +22,13 @@ class DistributionScreen extends Component {
           </View>
         </View>
         <ScrollView>
-          <View style={{paddingHorizontal: 20}}>
-          <View>
-            <DistChart />
-          </View>
-          <View>
-            <ExpDistributionCard/>
-          </View>
+          <View style={{ paddingHorizontal: 20 }}>
+            <View>
+              <DistChart />
+            </View>
+            <View>
+              <ExpDistributionCard />
+            </View>
           </View>
         </ScrollView>
       </View>
