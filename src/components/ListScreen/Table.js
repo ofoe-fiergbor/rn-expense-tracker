@@ -3,84 +3,109 @@ import { Text, StyleSheet, View, TouchableOpacity } from "react-native";
 import { FontAwesome5 } from "@expo/vector-icons";
 
 export default class Table extends Component {
+  iconBackgroundColors = () => {
+    if (this.props.expenseCategory === "food") {
+      return "#668cff";
+    }
+    if (this.props.expenseCategory === "clothing") {
+      return "grey";
+    }
+    if (this.props.expenseCategory === "rent") {
+      return "#d92626";
+    }
+    if (this.props.expenseCategory === "Telephone & Internet") {
+      return "green";
+    }
+    if (this.props.expenseCategory === "Transport & Travel") {
+      return "blue";
+    }
+    if (this.props.expenseCategory === "bills") {
+      return "navy";
+    }
+    if (this.props.expenseCategory === "medical") {
+      return "red";
+    }
+    if (this.props.expenseCategory === "lifestyle") {
+      return "orange";
+    }
+    if (this.props.expenseCategory === "Others") {
+      return "'#ffbf00";
+    }
+  };
 
-  iconBackgroundColors=()=>{
-    if(this.props.expenseCategory === "food"){
-     return '#668cff'
+  iconSelection = () => {
+    if (this.props.expenseCategory === "food") {
+      return "utensil-spoon";
     }
-    if(this.props.expenseCategory === "clothing"){
-      return "grey"
+    if (this.props.expenseCategory === "clothing") {
+      return "tshirt";
     }
-    if(this.props.expenseCategory === "rent"){
-      return "#d92626"
+    if (this.props.expenseCategory === "rent") {
+      return "home";
     }
-    if(this.props.expenseCategory === "Telephone & Internet"){
-      return "green"
+    if (this.props.expenseCategory === "Telephone & Internet") {
+      return "phone";
     }
-    if(this.props.expenseCategory === 'Transport & Travel'){
-      return "blue"
+    if (this.props.expenseCategory === "Transport & Travel") {
+      return "car";
     }
-    if(this.props.expenseCategory === "bills"){
-      return "navy"
+    if (this.props.expenseCategory === "bills") {
+      return "list-alt";
     }
-    if(this.props.expenseCategory === "medical"){
-      return "red"
+    if (this.props.expenseCategory === "medical") {
+      return "briefcase-medical";
     }
-    if(this.props.expenseCategory === "lifestyle"){
-      return "yellow"
+    if (this.props.expenseCategory === "lifestyle") {
+      return "music";
     }
-    if(this.props.expenseCategory === "Others"){
-      return "'#ffbf00"
+    if (this.props.expenseCategory === "Others") {
+      return "bars";
     }
-    
-  }
-
-  iconSelection = () =>{
-    if(this.props.expenseCategory === "food"){
-      return "utensil-spoon"
-    }
-    if(this.props.expenseCategory === "clothing"){
-      return "tshirt"
-    }
-    if(this.props.expenseCategory === "rent"){
-      return "home"
-    }
-    if(this.props.expenseCategory === "Telephone & Internet"){
-      return "phone"
-    }
-    if(this.props.expenseCategory === 'Transport & Travel'){
-      return "car"
-    }
-    if(this.props.expenseCategory === "bills"){
-      return "list-alt"
-    }
-    if(this.props.expenseCategory === "medical"){
-      return "briefcase-medical"
-    }
-    if(this.props.expenseCategory === "lifestyle"){
-      return "music"
-    }
-    if(this.props.expenseCategory === "Others"){
-      return "bars"
-    }
-    
-  }
+  };
   render() {
-    const { expenseCategory, amount, date, description } = this.props;
+    const {
+      expenseCategory,
+      amount,
+      date,
+      description,
+      navigation,
+    } = this.props;
     return (
-      <TouchableOpacity style={styles.container}>
+      <TouchableOpacity
+        style={styles.container}
+        onPress={() => {
+          navigation.navigate("details", {
+            expenseCategory,
+            amount,
+            date,
+            description,
+            
+          });
+        }}
+      >
         <View style={{ flexDirection: "row", justifyContent: "space-between" }}>
           <Text style={{ fontSize: 11, color: "grey" }}>SATURDAY, 25 JAN</Text>
           {/* <Text style={{ fontSize: 11, color: "grey" }}>-570 C</Text> */}
         </View>
         <View style={styles.row}>
           <View style={{ flexDirection: "row", alignItems: "center" }}>
-            <View style={{...styles.icon, backgroundColor:this.iconBackgroundColors()}}>
-              <FontAwesome5 name={this.iconSelection()} size={18} color="#fff" />
+            <View
+              style={{
+                ...styles.icon,
+                backgroundColor: this.iconBackgroundColors(),
+              }}
+            >
+              <FontAwesome5
+                name={this.iconSelection()}
+                size={18}
+                color="#fff"
+              />
             </View>
             <Text style={styles.cardText}>{expenseCategory}</Text>
           </View>
-          <Text style={{ color: "grey", textAlign: "right" , fontSize:14}}>{amount}</Text>
+          <Text style={{ color: "grey", textAlign: "right", fontSize: 14 }}>
+            {amount}
+          </Text>
         </View>
       </TouchableOpacity>
     );
@@ -109,7 +134,7 @@ const styles = StyleSheet.create({
   cardText: {
     textTransform: "capitalize",
     fontSize: 14,
-    color:'grey'
+    color: "grey",
   },
   row: {
     flexDirection: "row",

@@ -6,8 +6,7 @@ import TableInc from "../components/ListScreen/TableInc";
 import { connect } from "react-redux";
 import React, { Component } from "react";
 
-export class ListScreen extends Component {
-  render() {
+function ListScreen({addExpTransactionReducer, addIncomeReducer, navigation}) {
     return (
       <View style={styles.container}>
         <View>
@@ -27,7 +26,7 @@ export class ListScreen extends Component {
 
         <View style={{ height: 105, marginBottom: 10 }}>
           <FlatList
-            data={this.props.addIncomeReducer}
+            data={addIncomeReducer}
             horizontal={true}
             showsHorizontalScrollIndicator={false}
             renderItem={({ item }) => {
@@ -37,7 +36,8 @@ export class ListScreen extends Component {
                   description={item.description}
                   incomeSource={item.incomeSource}
                   date={item.date}
-                />
+                  navigation={navigation}
+                  />
               );
             }}
             keyExtractor={(item) => item.id}
@@ -45,7 +45,7 @@ export class ListScreen extends Component {
         </View>
 
         <FlatList
-          data={this.props.addExpTransactionReducer}
+          data={addExpTransactionReducer}
           renderItem={({ item }) => {
             return (
               <Table
@@ -53,6 +53,7 @@ export class ListScreen extends Component {
                 description={item.description}
                 expenseCategory={item.expenseCategory}
                 date={item.date}
+                navigation={navigation}
               />
             );
           }}
@@ -60,7 +61,6 @@ export class ListScreen extends Component {
         />
       </View>
     );
-  }
 }
 
 const mapStateToProps = (state) => {

@@ -1,12 +1,15 @@
 import React from "react";
 import { View, StyleSheet } from "react-native";
 import DistributionScreen from "../screens/DistributionScreen";
-import ListScreen from "../screens/ListScreen";
+// import ListScreen from "../screens/ListScreen";
 import AddScreen from "../screens/AddScreen";
 import BudgetScreen from "../screens/BudgetScreen";
+// import TraxDetailScreen from "../screens/TraxDetailScreen";
 import SettingScreen from "../screens/SettingScreen";
 import { Entypo, AntDesign, FontAwesome } from "@expo/vector-icons";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
+import ListStackScreen from "./ListStackScreen";
+
 
 const Tab = createBottomTabNavigator();
 
@@ -27,7 +30,7 @@ const TabNavigator = () => {
     >
       <Tab.Screen
         name="list"
-        component={ListScreen}
+        component={ListStackScreen}
         options={{
           tabBarLabel: "List",
           tabBarIcon: ({ color }) => (
@@ -62,6 +65,7 @@ const TabNavigator = () => {
           ),
         }}
       />
+
       <Tab.Screen
         name="budget"
         component={BudgetScreen}

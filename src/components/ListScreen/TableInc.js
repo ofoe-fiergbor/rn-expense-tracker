@@ -3,61 +3,78 @@ import { Text, StyleSheet, View, TouchableOpacity } from "react-native";
 import { FontAwesome5 } from "@expo/vector-icons";
 
 export default class Table extends Component {
-  iconBackgroundColors = () =>{
-    if(this.props.incomeSource === "salary"){
-      return "grey"
+  iconBackgroundColors = () => {
+    if (this.props.incomeSource === "salary") {
+      return "grey";
     }
-    if(this.props.incomeSource === "sideHustle"){
-      return "#d92626"
+    if (this.props.incomeSource === "sideHustle") {
+      return "#d92626";
     }
-    if(this.props.incomeSource === "gift"){
-      return "#668cff"
+    if (this.props.incomeSource === "gift") {
+      return "#668cff";
     }
-    if(this.props.incomeSource === "investment"){
-      return "green"
+    if (this.props.incomeSource === "investment") {
+      return "green";
     }
-    if(this.props.incomeSource === 'cedit'){
-      return "navy"
+    if (this.props.incomeSource === "cedit") {
+      return "navy";
     }
-    if(this.props.incomeSource === "other"){
-      return "red"
+    if (this.props.incomeSource === "other") {
+      return "red";
     }
-    
-  }
-  iconSelection = () =>{
-    if(this.props.incomeSource === "salary"){
-      return "money-bill-alt"
+  };
+  iconSelection = () => {
+    if (this.props.incomeSource === "salary") {
+      return "money-bill-alt";
     }
-    if(this.props.incomeSource === "sideHustle"){
-      return "blog"
+    if (this.props.incomeSource === "sideHustle") {
+      return "blog";
     }
-    if(this.props.incomeSource === "gift"){
-      return "gratipay"
+    if (this.props.incomeSource === "gift") {
+      return "gratipay";
     }
-    if(this.props.incomeSource === "investment"){
-      return "bitcoin"
+    if (this.props.incomeSource === "investment") {
+      return "bitcoin";
     }
-    if(this.props.incomeSource === "credit"){
-      return "building"
+    if (this.props.incomeSource === "credit") {
+      return "building";
     }
-    if(this.props.incomeSource === "other"){
-      return "bars"
+    if (this.props.incomeSource === "other") {
+      return "bars";
     }
-    
-  }
+  };
 
   render() {
-    const { incomeSource, amount, date, description } = this.props;
+    const { incomeSource, amount, date, description, navigation } = this.props;
     return (
-        <TouchableOpacity style={styles.container}>
-          <Text style={{ fontSize: 9, color: "grey", textAlign:'center'}}>25 JAN</Text>
-          {/* <Text style={{ fontSize: 11, color: "grey" }}>-570 C</Text> */}
+      <TouchableOpacity
+        style={styles.container}
+        onPress={() => {
+          navigation.navigate("IncomeDetails", {
+            incomeSource,
+            amount,
+            date,
+            description,
+          });
+        }}
+      >
+        <Text style={{ fontSize: 9, color: "grey", textAlign: "center" }}>
+          25 JAN
+        </Text>
+        {/* <Text style={{ fontSize: 11, color: "grey" }}>-570 C</Text> */}
         <View style={styles.row}>
-            <View style={{...styles.icon, backgroundColor:this.iconBackgroundColors()}}>
-              <FontAwesome5 name={this.iconSelection()} size={18} color="#fff" />
-            </View>
-            <Text style={styles.cardText}>{incomeSource}</Text>
-          <Text style={{ color: "grey", textAlign: "center" , fontSize:14}}>{amount}</Text>
+          <View
+            style={{
+              ...styles.icon,
+              backgroundColor: this.iconBackgroundColors(),
+            }}
+          >
+            <FontAwesome5 name={this.iconSelection()} size={18} color="#fff" />
+          </View>
+          <Text style={styles.cardText}>{incomeSource}</Text>
+          <Text style={{ color: "grey", textAlign: "center", fontSize: 14 }}>
+            {amount}
+          </Text>
         </View>
       </TouchableOpacity>
     );
@@ -74,7 +91,6 @@ const styles = StyleSheet.create({
     elevation: 7,
     paddingHorizontal: 10,
     marginHorizontal: 10,
-
   },
   icon: {
     // backgroundColor: "#668cff",
@@ -88,8 +104,8 @@ const styles = StyleSheet.create({
   cardText: {
     textTransform: "capitalize",
     fontSize: 14,
-    color:'grey',
-    textAlign:'center'
+    color: "grey",
+    textAlign: "center",
   },
   row: {
     justifyContent: "space-between",
